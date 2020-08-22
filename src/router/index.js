@@ -5,15 +5,14 @@ import About from '../views/About.vue'
 
 Vue.use(VueRouter)
 
-  const routes = [
-  {
+const routes = [{
     path: '/',
     name: 'vue-video-player',
     component: Home
   },
   {
     path: '/about',
-    name: 'ckplayer',
+    name: 'about',
     component: About
   }
 ]

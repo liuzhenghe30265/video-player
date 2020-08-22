@@ -1,9 +1,9 @@
 <template>
   <div id="app">
-    <div id="nav">
+    <!-- <div id="nav">
       <router-link to="/">vue-video-player</router-link> |
       <router-link to="/about">ckplayer</router-link>
-    </div>
+    </div> -->
     <router-view/>
   </div>
 </template>
