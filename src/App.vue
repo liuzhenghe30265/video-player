@@ -1,10 +1,19 @@
 <template>
-  <div id="app">
-    <!-- <div id="nav">
-      <router-link to="/">vue-video-player</router-link> |
-      <router-link to="/about">ckplayer</router-link>
-    </div> -->
-    <router-view/>
+  <div
+    id="app">
+    <div
+      id="nav">
+      <router-link
+        to="/">
+        rtmp
+      </router-link>
+      |
+      <router-link
+        to="/about">
+        rtsp
+      </router-link>
+    </div>
+    <router-view />
   </div>
 </template>
 
