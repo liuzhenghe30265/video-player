@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="playWnd" class="playWnd" style="left: 109px; top: 133px;"></div>
+    <script src="jquery-1.12.4.min.js"></script>
+    <script src="jsencrypt.min.js"></script>
+    <script src="jsWebControl-1.0.0.min.js"></script>
+    <script>
+        		// 推送消息
+		function cbIntegrationCallBack(oData) {
+			showCBInfo(JSON.stringify(oData.responseMsg));
+		}
+
+        function setCallbacks() {
+			oWebControl.JS_SetWindowControlCallback({
+				cbIntegrationCallBack: cbIntegrationCallBack
+			});
+		}
+        const oWebControl = new WebControl({
+            szPluginContainer: "playWnd",
+            iServicePortStart: 15900,
+            iServicePortEnd: 15909,
+            szClassId: "23BF3B0A-2C56-4D97-9C03-0CB103AA8F11", // 用于IE10使用ActiveX的clsid
+            cbConnectSuccess: function () {
+                console.log('..............success')
+                setCallbacks();
+                oWebControl.JS_StartService("window", {
+                    dllPath: "./VideoPluginConnect.dll"
+                }).then(function () {
+                    oWebControl.JS_CreateWnd("playWnd", 1800, 900).then(function () {
+                        console.log("JS_CreateWnd success");
+                        initVideo();
+                    });
+                }, function () {
+
+                });
+            },
+            cbConnectError: function () {
+                console.log("cbConnectError");
+                oWebControl = null;
+                $("#playWnd").html("插件未启动，正在尝试启动，请稍候...");
+                WebControl.JS_WakeUp("VideoWebPlugin://");
+                initCount++;
+                if (initCount < 3) {
+                    setTimeout(function () {
+                        initPlugin();
+                    }, 3000)
+                } else {
+                    $("#playWnd").html("插件启动失败，请检查插件是否安装！");
+                }
+            },
+            cbConnectClose: function (bNormalClose) {
+                // 异常断开：bNormalClose = false
+                // JS_Disconnect正常断开：bNormalClose = true
+                console.log("cbConnectClose");
+                oWebControl = null;
+            }
+        })
+        console.log('............oWebControl', oWebControl)
+    </script>
+</body>
+
+</html>
