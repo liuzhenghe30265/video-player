@@ -9,8 +9,8 @@
       </router-link>
       |
       <router-link
-        to="/about">
-        about
+        to="/FlvLive">
+        FlvLive
       </router-link>
     </div>
     <router-view />
