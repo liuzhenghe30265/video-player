@@ -4,13 +4,13 @@
     <div
       id="nav">
       <router-link
-        to="/">
-        rtmp
+        to="/VideoPlayer">
+        VideoPlayer
       </router-link>
       |
       <router-link
         to="/about">
-        rtsp
+        about
       </router-link>
     </div>
     <router-view />
