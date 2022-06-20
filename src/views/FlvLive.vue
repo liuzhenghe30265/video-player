@@ -2,7 +2,7 @@
   <div
     class="">
     <button
-      @click="handleClick">click</button>
+      @click="handleClick">播放</button>
     <figure
       ref="videoContainer"
       data-fullscreen="false">
@@ -31,11 +31,15 @@ export default {
 
   data () {
     return {
-
-    };
+      flvPlayer: null
+    }
   },
 
   created () {
+
+  },
+
+  mounted () {
     this.$nextTick(() => {
       if (flvjs.isSupported()) {
         const flvPlayer = flvjs.createPlayer({
@@ -43,28 +47,20 @@ export default {
           isLive: true,
           url: 'https://sample-videos.com/video123/flv/720/big_buck_bunny_720p_1mb.flv',
         });
-        console.log('......flvPlayer', flvPlayer)
-        flvPlayer.attachMediaElement(this.$refs.video);
+        flvPlayer.attachMediaElement(this.$refs.video)
         flvPlayer.load()
         // flvPlayer.play()
-        console.log('........this', this)
         this.flvPlayer = flvPlayer
+
       }
     })
   },
 
-  mounted () {
-    // setTimeout(() => {
-    //   this.flvPlayer.load()
-    //   this.flvPlayer.play()
-    // }, 1000)
-  },
-
   methods: {
     handleClick () {
-      console.log('.......this.flvPlayer', this.flvPlayer)
+      console.log('......this.flvPlayer', this.flvPlayer)
       this.flvPlayer.play()
     }
-  },
-};
+  }
+}
 </script>
